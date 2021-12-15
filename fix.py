@@ -97,7 +97,7 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
                       '<a href="/fonts-in-use#',
                       html)
 
-        if "meta rel\"canonical" not in html:
+        if '<meta rel="canonical"' not in html:
             html = re.sub(r"</head>",
                           "<meta rel=\"canonical\" href=\"/%s\">\n</head>"
                           % os.path.splitext(os.path.basename(path))[0],
