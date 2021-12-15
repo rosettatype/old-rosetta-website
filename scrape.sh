@@ -1,3 +1,9 @@
+echo "Remove old CSS"
+# With the version suffix, those will never "re-download" but should be fresh
+find . -type f -name "*.css" -delete
+find . -type f -name "*.css.orig" -delete
+
+echo "Scape old.rosettatype.com"
 # via https://stackoverflow.com/a/39753416/999162 (also has explanation of the flags)
 # -m to mirror, alias of -r -N -l inf -nr
 # -k convert links (relative for internal, full for absolute)
