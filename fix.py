@@ -86,7 +86,7 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
         html = re.sub(r"href=\"([A-z.]*)(?=#font-family-)",
                       "href=\"",
                       html)
-        html = re.sub(r"tester\">Fonts</a>",
+        html = re.sub(r"tester(\.html)?\">Fonts</a>",
                       "fonts\">Fonts</a>",
                       html)
         html = re.sub(r"href=\"(.*)\" rel=\"home\">",
