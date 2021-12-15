@@ -33,6 +33,9 @@ for dir in os.listdir(microsites_repo):
 # Remove cachebusting timestamps from files
 images = {}
 for path in glob.glob(f"{DIR}/**/*.jpg?*", recursive=True):
+    if path.startswith("./_site"):
+        continue
+
     file = re.sub(r"\?[0-9]*$", "", path)
     print(f"Save file without cachebuster: {file}")
     os.rename(path, file)
@@ -40,6 +43,9 @@ for path in glob.glob(f"{DIR}/**/*.jpg?*", recursive=True):
 
 # Fix image links in files
 for path in glob.glob(f"{DIR}/**/*", recursive=True):
+    if path.startswith("./_site"):
+        continue
+
     html = ""
     try:
         with open(path, "r") as f:
@@ -56,6 +62,8 @@ for path in glob.glob(f"{DIR}/**/*", recursive=True):
 done = []
 permalinks = {}
 for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
+    if path.startswith("./_site"):
+        continue
 
     print(f"Fix things in {path}")
 
@@ -63,11 +71,15 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
     if path in done:
         continue
 
+    if path.startswith("./_site"):
+        continue
+
     # Fix the relative link that opens the modal, it should not include the
     # generated local html
     html = ""
     with open(path, "r") as f:
         html = f.read()
+        html = re.sub("%3F", "?", html)
         html = re.sub(r"<a href=\"([^#]*)#charset-modal",
                       "<a href=\"#charset-modal",
                       html)
@@ -84,9 +96,9 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
 
         if "meta rel\"canonical" not in html:
             html = re.sub(r"</head>",
-                        "<meta rel=\"canonical\" href=\"/%s\">\n</head>"
-                        % os.path.splitext(os.path.basename(path))[0],
-                        html)
+                          "<meta rel=\"canonical\" href=\"/%s\">\n</head>"
+                          % os.path.splitext(os.path.basename(path))[0],
+                          html)
 
         doctype = """<!DOCTYPE html>
 <!--[if IE 8]>    <html class="no-js no-svg lt-ie9 responsive"> <![endif]-->
@@ -101,7 +113,7 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
 
         if not html.startswith("---"):
             perma = os.path.splitext(path)[0][1:]
-            permalinks[os.path.basename(path)] = perma
+            permalinks[os.path.basename(path.replace("%3F", "?"))] = perma
             html = f"---\npermalink: {perma}\n---\n" + html
 
     with open(path, "w") as f:
@@ -111,10 +123,18 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
 
 # Fixing permalinks to html files
 for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
+    if path.startswith("./_site"):
+        continue
+
     html = ""
+
     with open(path, "r") as f:
         html = f.read()
+        html = re.sub("%3F", "?", html)
+
     for file, permalink in permalinks.items():
-        html = re.sub(file, os.path.splitext(file)[0], html)
+        file = re.sub("%3F", "?", file)
+        rpl = os.path.splitext(file)[0]
+        html = re.sub(re.escape(file), rpl, html)
     with open(path, "w") as f:
         f.write(html)

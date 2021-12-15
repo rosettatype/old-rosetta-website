@@ -10,10 +10,14 @@ echo "Copy missed webfonts and json files from microsites"
 python fix.py
 
 echo "Fixing left-over absolute URLs"
-# kind of risky... there shouldn't be any :O
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|http://rosettatype.com/|/|g'
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|https://rosettatype.com/|/|g'
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|http://www.rosettatype.com/|/|g'
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|https://www.rosettatype.com/|/|g'
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|http://old.rosettatype.com/|/|g'
-find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e 's|https://old.rosettatype.com/|/|g'
+# kind of risky... there shouldn't be any, but of course there are, since not
+# all internal URLs properly use their current app base url old.rosettatype.com
+for ext in html css js
+do
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|http://rosettatype.com/|/|g'
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|https://rosettatype.com/|/|g'
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|http://www.rosettatype.com/|/|g'
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|https://www.rosettatype.com/|/|g'
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|http://old.rosettatype.com/|/|g'
+    find . -type f -name "*.$ext" -print0 | xargs -0 sed -i '' -e 's|https://old.rosettatype.com/|/|g'
+done
