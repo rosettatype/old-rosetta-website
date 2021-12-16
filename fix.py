@@ -99,6 +99,7 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
         html = re.sub('<a href="fonts-in-use(\.html)?#',
                       '<a href="/fonts-in-use#',
                       html)
+        html = html.replace('<link href="favicon.ico?v2" rel="shortcut icon" sizes="64x64" type="image/vnd.microsoft.icon" />', '<link href="favicon.ico" rel="shortcut icon" />')
 
         if '<meta rel="canonical"' not in html:
             html = re.sub(r"</head>",
