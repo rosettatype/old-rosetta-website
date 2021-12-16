@@ -12,6 +12,9 @@ echo "Scape old.rosettatype.com"
 # -P folder to scrape into "." + --no-host-directories = git repo root folder
 wget -m -E -k -K -t 10 --random-wait --no-if-modified-since --no-check-certificate --no-verbose --no-host-directories -P . https://old.rosettatype.com
 
+echo "Adding favicon"
+cp favicon.ico?v2 favicon.ico
+
 echo "Added old redirects"
 python redirects.py
 
