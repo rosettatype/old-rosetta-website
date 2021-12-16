@@ -96,7 +96,7 @@ for path in glob.glob(f"{DIR}/**/*.html", recursive=True):
                       "href=\"/\" rel=\"home\">",
                       html)
         html = re.sub(r"\.jpg\?[0-9]*", ".jpg", html)
-        html = re.sub('<a href="fonts-in-use#',
+        html = re.sub('<a href="fonts-in-use(\.html)?#',
                       '<a href="/fonts-in-use#',
                       html)
 
