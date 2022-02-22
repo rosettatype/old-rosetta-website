@@ -3,7 +3,7 @@ echo "Remove old CSS"
 find . -type f -name "*.css" -delete
 find . -type f -name "*.css.orig" -delete
 
-echo "Scape old.rosettatype.com"
+echo "Scrape old.rosettatype.com"
 # via https://stackoverflow.com/a/39753416/999162 (also has explanation of the flags)
 # -m to mirror, alias of -r -N -l inf -nr
 # -k convert links (relative for internal, full for absolute)
