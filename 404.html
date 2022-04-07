@@ -43,12 +43,14 @@ new window.base_hashChange_register();
     dataLayer = [];
     dataLayer.push({"event":"trackError","error":{"code":500,"message":"Page not found"}});
   </script>
+  <script defer data-domain="rosettatype.com" src="https://plausible.io/js/script.file-downloads.outbound-links.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 </head>
 <body id="templateID" class="pageID withFixedNavigation" itemscope itemtype="http://schema.org/WebPage">
 
-<!-- Plausible Analytics (respect GDPR) -->
-<script defer data-domain="rosettatype.com" src="https://plausible.io/js/plausible.js"></script>
 
+<script>plausible("404",{ props: { path: document.location.pathname } });</script>
+  
 
   
 <div class="pagePrimaryNavigation fixed">

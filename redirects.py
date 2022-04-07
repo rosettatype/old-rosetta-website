@@ -39,7 +39,7 @@ for old, new in urls.items():
 ---
 <!doctype html>
 <html>
-<head><meta http-equiv="Refresh" content="0; url='{new}'" />
+<head><meta http-equiv="Refresh" content="0; url='{new}'" /></head>
 <body>Page moved to <a href="{new}">{new}</a></body>
 </html>"""
         f.write(tpl)
@@ -51,7 +51,7 @@ for old, new in urls.items():
 #     with open(old, "w") as f:
 #         tpl = f"""<!doctype html>
 # <html>
-# <head><meta http-equiv="Refresh" content="0; url='{new}'" />
+# <head><meta http-equiv="Refresh" content="0; url='{new}'" /></head>
 # <body>Page moved to <a href="{new}">{new}</a></body>
 # </html>"""
 #         f.write(tpl)
